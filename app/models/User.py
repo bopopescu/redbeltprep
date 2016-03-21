@@ -39,3 +39,10 @@ class User(Model):
             print "bad email."
             errors.append('bad email address.')
             return {"status": False, "errors": errors}
+
+    def get_user_info(self, info):
+        get_query = "SELECT * FROM users WHERE id = %s"
+        get_data = [info]
+        get_return = self.db.query_db(get_query, get_data)
+        print "get return", get_return
+        return get_return

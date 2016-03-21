@@ -19,7 +19,7 @@
             {% for review in bookdata %}
             <div class="col-md-8 individreview">
             reviewed by {{review['alias']}}:<br>
-            {{review['author_name']}} - <a href="/books/{{review['id']}}">{{review['title']}}</a><br>
+            {{review['author_name']}} - <a href="/books/{{review['book_id']}}">{{review['title']}}</a><br>
             rating: {{review['rating']}}
                <img src="static/img/star.png" class="star" alt="star" /><br>
             {{review['review_content']}}<br><br><br>

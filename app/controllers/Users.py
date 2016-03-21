@@ -44,6 +44,7 @@ class Users(Controller):
         return redirect('/')
 
     def user_page(self, id):
-
-
-        return self.load_view('/users/user_page.html')
+        userinfo = self.models['User'].get_user_info(id)[0]
+        reviews = self.models['Book'].reviews_by_user(id)
+        print reviews
+        return self.load_view('/users/user_page.html', user=userinfo, reviews=reviews)

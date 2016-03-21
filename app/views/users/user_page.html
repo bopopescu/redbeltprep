@@ -16,11 +16,11 @@
          <h1>User Alias: {{user['alias']}}</h1>
          <h2>Name: {{user['name']}}</h2>
          <h3>Email: {{user['email']}}</h3>
-         <h3>Total Reviews: {{count}}</h3>
+         <h3>Total Reviews: {{user['count']}}</h3>
          <p>
             Posted reviews on the following books: <br>
             {% for review in reviews %}
-               {{review['title']}}
+               <a href="/books/{{review['book_id']}}">{{review['title']}}</a><br>
             {% endfor %}
          </p>
 

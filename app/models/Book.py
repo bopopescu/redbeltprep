@@ -50,6 +50,9 @@ class Book(Model):
         review_insert_query = "INSERT INTO reviews (book_id, content, posted_by, rating, created_at) VALUES (%s, %s, %s, %s, NOW())"
         review_insert_data = [data['book_id'], data['review_content'], data['posted_by'], data['rating']]
         review_return = self.db.query_db(review_insert_query, review_insert_data)
+        update_count = "UPDATE users SET users.count = users.count + 1 WHERE users.id = %s"
+        update_data = [session['id']]
+        self.db.query_db(update_count, update_data)
         print review_return
         return review_return
 
@@ -63,4 +66,13 @@ class Book(Model):
         new_query = "INSERT INTO reviews (book_id, content, posted_by, rating, created_at) VALUES (%s, %s, %s, %s, NOW())"
         new_data = [info['book_id'], info['content'], info['posted_by'], info['rating']]
         new_return = self.db.query_db(new_query, new_data)
+        update_count = "UPDATE users SET users.count = users.count + 1 WHERE users.id = %s"
+        update_data = [session['id']]
+        self.db.query_db(update_count, update_data)
         return new_return
+
+    def reviews_by_user(self, info):
+        user_reviews_query = "SELECT books.title, reviews.book_id FROM reviews JOIN books ON reviews.book_id = books.id WHERE reviews.posted_by = %s"
+        user_reviews_data = [info]
+        reviews_return = self.db.query_db(user_reviews_query, user_reviews_data)
+        return reviews_return
