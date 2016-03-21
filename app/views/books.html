@@ -18,12 +18,18 @@
             <h2>Recent Book Reviews:</h2>
             {% for review in bookdata %}
             <div class="col-md-8 individreview">
-            reviewed by {{userdata[0]['alias']}}:<br>
+            reviewed by {{review['alias']}}:<br>
             {{review['author_name']}} - <a href="/books/{{review['id']}}">{{review['title']}}</a><br>
             rating: {{review['rating']}}
                <img src="static/img/star.png" class="star" alt="star" /><br>
-            {{review['content']}}<br><br><br>
+            {{review['review_content']}}<br><br><br>
             </div>
+            {% endfor %}
+         </div>
+         <div class="col-md-4 other_reviews">
+            <h4>Other reviews:</h4>
+            {% for r in reviews %}
+               <a href="/books/{{r['book_id']}}">{{r['title']}}</a> by <a href="/users/{{r['posted_by']}}">{{r['alias']}}</a><br>
             {% endfor %}
          </div>
       </div>

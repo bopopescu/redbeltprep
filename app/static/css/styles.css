@@ -1,6 +1,4 @@
-* {
-  font-family: monaco;
-}
+
 h1 {
    display: inline-block;
 }
@@ -19,4 +17,9 @@ div.individreview {
 img.star {
    height: 25px;
    width: 25px;
+}
+
+.other_reviews {
+   border: 5px solid #f92;
+   padding: 10px;
 }

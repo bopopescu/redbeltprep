@@ -10,9 +10,13 @@ routes['default_controller'] = 'Users'
 routes['GET']['/'] = 'Users#index'
 routes['POST']['/register'] = 'Users#register'
 routes['POST']['/login'] = 'Users#login'
-routes['GET']['/books'] = 'Users#books'
-routes['GET']['/books/add'] = 'Users#add'
-routes['POST']['/books/create'] = 'Users#create'
+routes['GET']['/logout'] = 'Users#logout'
+routes['GET']['/books'] = 'Books#books'
+routes['GET']['/books/add'] = 'Books#add'
+routes['POST']['/books/create'] = 'Books#create'
+routes['GET']['/books/<int:id>'] = 'Books#book_page'
+routes['POST']['/books/create/<int:id>'] = 'Books#new_review'
+routes['GET']['/users/<int:id>'] = 'Users#user_page'
 
 
 
