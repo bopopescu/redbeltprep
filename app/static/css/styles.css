@@ -7,3 +7,16 @@ h1 {
 span {
    font-weight: bold;
 }
+div.review {
+   border: 5px solid silver;
+   border-style: groove;
+}
+div.individreview {
+   padding: 5px;
+
+}
+
+img.star {
+   height: 25px;
+   width: 25px;
+}

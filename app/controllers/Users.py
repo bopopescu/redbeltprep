@@ -43,6 +43,7 @@ class Users(Controller):
         data = self.models['User'].books_page_get()
         bookdata = data[0]
         userdata = data[1]
+        print bookdata, userdata
         return self.load_view('/books.html', bookdata=bookdata, userdata=userdata)
 
     def add(self):
@@ -54,21 +55,30 @@ class Users(Controller):
     def create(self):
         print "creating new review"
         authorid = request.form['author_list']
-        print authorid
+        print "author id from list = ", authorid
+        print request.form
         if authorid == "none":
             authors = self.models['User'].authors_get()
             authorid = (authors[0]['id'] + 1)
-            print "author id", authorid
+            print "author id set to", authorid
+            authorfromlist = False
         else:
-            authorid = request.form['author_id']
+            authorid = request.form['author_list']
+            print "author is from list"
+            authorfromlist = True
         review_info = {
         "title" : request.form['book_title'],
-        "review" : request.form['review'],
+        "review_content" : request.form['review_content'],
         "rating" : request.form['rating'],
         "author_id" : authorid,
-        "posted_by" : session['id']
+        "posted_by" : session['id'],
+        "author_name" : request.form['author_name']
         }
-        print review_info
-        self.models['User'].book_check(review_info)
-        self.models['User'].add_author(review_info)
+        print "review info return", review_info
+        bookcheck = self.models['User'].book_check(review_info, authorfromlist)
+        newbook = self.models['User'].new_book_get()
+        review_info['book_id'] = newbook['id']
+        print "review info:" ,review_info
+        review = self.models['User'].add_review(review_info)
+        print review
         return redirect('/books')

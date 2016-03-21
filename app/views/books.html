@@ -14,10 +14,16 @@
             <p class="navbar-text pull-right"><a href="/logout">Log Out</a></p>
             <p class="navbar-text pull-right"><a href="/books/add">Add Book/Review</a></p>
          </nav>
-         <div class="col-md-6">
+         <div class="col-md-8 review">
             <h2>Recent Book Reviews:</h2>
-            {% for review in bookreviews %}
-            pass
+            {% for review in bookdata %}
+            <div class="col-md-8 individreview">
+            reviewed by {{userdata[0]['alias']}}:<br>
+            {{review['author_name']}} - <a href="/books/{{review['id']}}">{{review['title']}}</a><br>
+            rating: {{review['rating']}}
+               <img src="static/img/star.png" class="star" alt="star" /><br>
+            {{review['content']}}<br><br><br>
+            </div>
             {% endfor %}
          </div>
       </div>
