@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+      <link rel="stylesheet" href="static/css/styles.css">
+      <title>Add Book and Review</title>
+   </head>
+   <body>
+      <nav class="navbar-static-top">
+         <p class="navbar-text pull-right"><a href="/logout">Log Out</a></p>
+         <p class="navbar-text pull-right"><a href="/books/add">Add Book/Review</a></p>
+      </nav>
+      <div class="container">
+         <h2>Add a New Book and a Review</h2>
+         <form class="new_review" action="/books/create" method="post">
+            <span>Book Title</span>: <br><input type="text" name="book_title" value=""><br>
+            <span>Author</span>: <br>
+            Choose from the list: <select class="form_control" name="author_list">
+               <option value="none">     </option>
+               {% for author in authors %}
+               <option name="author_id" value="{{author['id']}}">{{author['author_name']}}</option>
+               {% endfor %}
+            </select><br>
+            Or add a new author: <input type="text" name="author_name"><br>
+            <span>Review</span>: <br><textarea name="review" rows="8" cols="40"></textarea><br>
+            <span>Rating</span>: <select class="form_control" name="rating">
+               <option id="5" label="5" value="5">
+               <option id="4" label="4" value="4">
+               <option id="3" label="3" value="3">
+               <option id="2" label="2" value="2">
+               <option id="1" label="1" value="1">
+            </select><br>
+            <input class="btn btn-primary" type="submit" name="add_review" value="Add Book and Review">
+         </form>
+      </div>
+   </body>
+</html>
