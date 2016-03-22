@@ -21,9 +21,18 @@ class Users(Controller):
         "password" : request.form['password'],
         "confirm_pw" : request.form['confirm_pw']
         }
-        newuser = self.models['User'].register_user(register_info)
-        print newuser
-        return redirect('/')
+        creation_validation = self.models['User'].creation_validation(register_info)
+        if creation_validation['status'] == True:
+            newuser = self.models['User'].register_user(register_info)
+            print newuser
+            userid = self.models['User'].get_user_id()
+            print "userid", userid
+            session['id'] = userid[0]['id']
+            print "session ID made so:", session['id']
+            return redirect('/books')
+        else:
+            flash(creation_validation['errors'])
+            return redirect('/')
 
     def login(self):
         print "login request submitted"

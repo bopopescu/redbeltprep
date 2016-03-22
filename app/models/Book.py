@@ -42,9 +42,7 @@ class Book(Model):
 
     def new_book_get(self):
         newest_book_query = "SELECT books.id FROM books ORDER BY books.id DESC LIMIT 1"
-        newest_book = self.db.query_db(newest_book_query)[0]
-        print "newest book", newest_book
-        return newest_book
+        return self.db.query_db(newest_book_query)[0]
 
     def add_review(self, data):
         review_insert_query = "INSERT INTO reviews (book_id, content, posted_by, rating, created_at) VALUES (%s, %s, %s, %s, NOW())"

@@ -6,12 +6,11 @@ class Books(Controller):
         super(Books, self).__init__(action)
 
         self.load_model('Book')
-        self.load_model('Book')
-
 
     def books(self):
         print "books page loaded"
         data = self.models['Book'].books_page_get()
+        print "9"
         bookdata = data[0]
         userdata = data[1]
         print bookdata, userdata

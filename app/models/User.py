@@ -1,5 +1,6 @@
 from system.core.model import Model
 from flask import session
+import re
 
 class User(Model):
     def __init__(self):
@@ -8,12 +9,41 @@ class User(Model):
     def get_all_users(self):
         print self.db.query_db("SELECT * FROM users")
 
+    def get_user_id(self):
+        query = "SELECT id FROM users ORDER BY id DESC LIMIT 1"
+        return self.db.query_db(query)
+
+    def creation_validation(self, info):
+        print "creation validation method"
+        EMAIL_REGEX = re.compile(r'^[a-za-z0-9\.\+_-]+@[a-za-z0-9\.-]+\.[a-za-z]*$')
+        errors = []
+        password = info['password']
+        if not info['name']:
+            errors.append('Name cannot be blank')
+        elif len(info['name']) < 2:
+            errors.append('Name must be at least 2 characters long')
+        if not info['email']:
+            errors.append('Email cannot be blank')
+        elif not EMAIL_REGEX.match(info['email']):
+            errors.append('Email format must be valid!')
+        if not info['password']:
+            errors.append('Password cannot be blank')
+        elif len(info['password']) < 8:
+            errors.append('Password must be at least 8 characters long')
+        elif info['password'] != info['confirm_pw']:
+            errors.append('Password and confirmation must match!')
+        if errors:
+            return {"status": False, "errors": errors}
+        else:
+            return{"status": True}
+
     def register_user(self, info):
         print "registering user"
         pw_hash = self.bcrypt.generate_password_hash(info['password'])
         register_info = [info['name'], info['alias'], info['email'], pw_hash]
         register_query = "INSERT INTO users (name, alias, email, pw_hash, created_at) VALUES (%s, %s, %s, %s, NOW())"
-        return self.db.query_db(register_query, register_info)
+        user = self.db.query_db(register_query, register_info)
+        return user
 
 
     def validate_login(self, info):
